@@ -17,11 +17,16 @@ app.post('/scb/payment/confirm', async (req, res) => {
   console.log(body)
   res.send(body);
 });
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  res.header("Access-Control-Allow-Headers","Access-Control-Allow-Headers")
+app.get('/*', function (req, res,next) {
+  let ALLOW_ORIGIN = ['api-sandbox.partners.scb', 'paymentqrcode.herokuapp.com']
+  let ORIGIN = req.headers.origin
+     if (ALLOW_ORIGIN.includes(ORIGIN)) {
+       res.header('Access-Control-Allow-Origin', ORIGIN)
+     }
+     res.header('Access-Control-Allow-Methods','POST, GET, PUT, PATCH, DELETE, OPTIONS')
+     res.header('Access-Control-Allow-Headers','Content-Type, Option, Authorization')
+     res.sendFile(path.join(__dirname, 'build', 'index.html'));
+     return next()
+  
 });
 app.listen(port);
