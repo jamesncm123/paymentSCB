@@ -19,10 +19,11 @@ export default class App extends Component {
       method:"POST",
       headers:{
         "Access-Control-Allow-Origin": "*",
-        'Access-Control-Allow-Headers': 'requestUId',
+        'Access-Control-Allow-Headers': 'requestUId,resourceOwnerId',
         'Content-Type': 'application/json',
-        'requestUId': uid,
-        'resourceOwnerId': 'l7a0bed42f65814e82a1ca23ab8eda0e88'
+        'resourceOwnerId': 'l7a0bed42f65814e82a1ca23ab8eda0e88',
+        'requestUId': 'ajisodioajsdoasodijo123asdasd'
+        
       },
       body: {
         "applicationKey" : "l7a0bed42f65814e82a1ca23ab8eda0e88",
@@ -35,7 +36,7 @@ export default class App extends Component {
           method:"POST",
           headers:{
             "Access-Control-Allow-Origin": "*",
-            'Access-Control-Allow-Headers': 'requestUId',
+            'Access-Control-Allow-Headers': 'requestUId,resourceOwnerId',
             'authorization': 'Bearer '+ response.data.accessToken,
             'resourceOwnerId': 'l7a0bed42f65814e82a1ca23ab8eda0e88',
             'requestUId':uid,
