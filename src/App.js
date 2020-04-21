@@ -18,7 +18,7 @@ export default class App extends Component {
       headers:{
         "Access-Control-Allow-Origin": "*",
         'Content-Type': 'application/json',
-        'requestUId': 'd7e992f3-c9f1-4071-8a4a-6c5839c8d317',
+        // 'requestUId': 'd7e992f3-c9f1-4071-8a4a-6c5839c8d317',
         'resourceOwnerId': 'l7a0bed42f65814e82a1ca23ab8eda0e88'
       },
       body: {
