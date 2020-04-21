@@ -15,11 +15,12 @@ export default class App extends Component {
   payment(){
     const uid = (Math.random()).toString();
     console.log(uid)
-    fetch('https://api-sandbox.partners.scb/partners/sandbox/v1/oauth/token',{
+    fetch('http://api-sandbox.partners.scb/partners/sandbox/v1/oauth/token',{
       method:"POST",
       headers:{
         "Access-Control-Allow-Origin": "*",
-        'Access-Control-Allow-Headers': 'requestUId,resourceOwnerId',
+        'Access-Control-Allow-Methods':'POST, GET, PUT, PATCH, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers':'Content-Type, Option, Authorization,resourceOwnerId,requestUId',
         'Content-Type': 'application/json',
         'resourceOwnerId': 'l7a0bed42f65814e82a1ca23ab8eda0e88',
         'requestUId': 'ajisodioajsdoasodijo123asdasd'
@@ -32,14 +33,15 @@ export default class App extends Component {
     }).then(response=>{
       console.log(response)
       if(response.status.code === 1000){
-        fetch('https://api-sandbox.partners.scb/partners/sandbox/v2/deeplink/transactions',{
+        fetch('http://api-sandbox.partners.scb/partners/sandbox/v2/deeplink/transactions',{
           method:"POST",
           headers:{
             "Access-Control-Allow-Origin": "*",
-            'Access-Control-Allow-Headers': 'requestUId,resourceOwnerId',
+            'Access-Control-Allow-Methods':'POST, GET, PUT, PATCH, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers':'Content-Type, Option, Authorization,resourceOwnerId,requestUId',
             'authorization': 'Bearer '+ response.data.accessToken,
             'resourceOwnerId': 'l7a0bed42f65814e82a1ca23ab8eda0e88',
-            'requestUId':uid,
+            'requestUId':'ajisodioajsdoasodijo123asdasd',
             'channel':'scbeasy',
             'Content-Type': 'application/json'
           },
