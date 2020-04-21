@@ -16,7 +16,7 @@ export default class App extends Component {
     fetch('https://api-sandbox.partners.scb/partners/sandbox/v1/oauth/token',{
       method:"POST",
       headers:{
-        'Access-Control-Allow-Headers': '*',
+        "Access-Control-Allow-Origin": "*",
         'Content-Type': 'application/json',
         'requestUId': 'd7e992f3-c9f1-4071-8a4a-6c5839c8d317',
         'resourceOwnerId': 'l7a0bed42f65814e82a1ca23ab8eda0e88'
@@ -31,7 +31,7 @@ export default class App extends Component {
         fetch('https://api-sandbox.partners.scb/partners/sandbox/v2/deeplink/transactions',{
           method:"POST",
           headers:{
-            'Access-Control-Allow-Headers': '*',
+            "Access-Control-Allow-Origin": "*",
             'authorization': 'Bearer '+ response.data.accessToken,
             'resourceOwnerId': 'l7a0bed42f65814e82a1ca23ab8eda0e88',
             'requestUId':'d7e992f3-c9f1-4071-8a4a-6c5839c8d317',
@@ -69,7 +69,7 @@ export default class App extends Component {
     size={256}
          />
       </div>
-      
+
     )
   }
 }
