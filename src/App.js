@@ -13,12 +13,15 @@ export default class App extends Component {
     }
   }
   payment(){
+    const uid = (Math.random()).toString();
+    console.log(uid)
     fetch('https://api-sandbox.partners.scb/partners/sandbox/v1/oauth/token',{
       method:"POST",
       headers:{
         "Access-Control-Allow-Origin": "*",
+        'Access-Control-Allow-Headers': 'requestUId',
         'Content-Type': 'application/json',
-        // 'requestUId': 'd7e992f3-c9f1-4071-8a4a-6c5839c8d317',
+        'requestUId': uid,
         'resourceOwnerId': 'l7a0bed42f65814e82a1ca23ab8eda0e88'
       },
       body: {
@@ -32,9 +35,10 @@ export default class App extends Component {
           method:"POST",
           headers:{
             "Access-Control-Allow-Origin": "*",
+            'Access-Control-Allow-Headers': 'requestUId',
             'authorization': 'Bearer '+ response.data.accessToken,
             'resourceOwnerId': 'l7a0bed42f65814e82a1ca23ab8eda0e88',
-            'requestUId':'d7e992f3-c9f1-4071-8a4a-6c5839c8d317',
+            'requestUId':uid,
             'channel':'scbeasy',
             'Content-Type': 'application/json'
           },
