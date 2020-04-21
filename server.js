@@ -6,6 +6,7 @@ const app = express();
 app.use(favicon(__dirname + '/build/favicon.ico'));
 // the __dirname is the current directory from where the script is running
 app.use(express.static(__dirname));
+
 app.use(express.static(path.join(__dirname, 'build')));
 app.get('/callback', function (req, res) {
  return res.send('pong');
@@ -18,5 +19,9 @@ app.post('/scb/payment/confirm', async (req, res) => {
 });
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header("Access-Control-Allow-Headers","Access-Control-Allow-Headers")
 });
 app.listen(port);
