@@ -69,6 +69,7 @@ export default class App extends Component {
     size={256}
          />
       </div>
+      
     )
   }
 }
