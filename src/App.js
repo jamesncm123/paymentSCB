@@ -69,7 +69,7 @@ export default class App extends Component {
   }
   render() {
     return (
-      <div>
+      <div style={{alignContent:"center"}}>
 
       <button onClick={this.payment}>CLICK PAYMANTs</button>
       <h1>{this.state.url}</h1>
