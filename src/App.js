@@ -71,7 +71,7 @@ export default class App extends Component {
     return (
       <div style={{alignContent:"center"}}>
 
-      <button onClick={this.payment}>CLICK PAYMANTs</button>
+      <button onClick={this.payment}>CLICK PAYMANT</button>
       <h1>{this.state.url}</h1>
         {
           this.state.url &&(
