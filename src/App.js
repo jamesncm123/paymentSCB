@@ -12,69 +12,76 @@ export default class App extends Component {
       url:""
     }
   }
-  payment(){
+  payment = async()=>{
     const uid = (Math.random()).toString();
     console.log(uid)
-    fetch('http://api-sandbox.partners.scb/partners/sandbox/v1/oauth/token',{
-      method:"POST",
-      headers:{
-        "Access-Control-Allow-Origin": "*",
-        'Access-Control-Allow-Methods':'POST, GET, PUT, PATCH, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers':'Content-Type, Option, Authorization,resourceOwnerId,requestUId',
-        'Content-Type': 'application/json',
-        'resourceOwnerId': 'l7a0bed42f65814e82a1ca23ab8eda0e88',
-        'requestUId': 'ajisodioajsdoasodijo123asdasd'
-        
-      },
-      body: {
-        "applicationKey" : "l7a0bed42f65814e82a1ca23ab8eda0e88",
-        "applicationSecret" : "b777b20368df4cdf96fba31663cabb02"
-     }
-    }).then(response=>{
-      console.log(response)
-      if(response.status.code === 1000){
-        fetch('http://api-sandbox.partners.scb/partners/sandbox/v2/deeplink/transactions',{
-          method:"POST",
-          headers:{
-            "Access-Control-Allow-Origin": "*",
-            'Access-Control-Allow-Methods':'POST, GET, PUT, PATCH, DELETE, OPTIONS',
-            'Access-Control-Allow-Headers':'Content-Type, Option, Authorization,resourceOwnerId,requestUId',
-            'authorization': 'Bearer '+ response.data.accessToken,
-            'resourceOwnerId': 'l7a0bed42f65814e82a1ca23ab8eda0e88',
-            'requestUId':'ajisodioajsdoasodijo123asdasd',
-            'channel':'scbeasy',
-            'Content-Type': 'application/json'
-          },
-          body: {
-            "paymentAmount": "100",
-              "transactionType": "PAYMENT",
-              "transactionSubType": "BPA",
-              "ref1": "123123",
-              "ref2": "12421123",
-              "ref3": "SCB",
-              "accountTo": "382574431459828"
-          }
-        }).then(res =>{
-          console.log(res)
-          if(res.status.code === 1000){
-            this.setState({url:res.data.deeplinkUrl})
-          }
-        })
-      }
+  
+      var myHeaders = new Headers();
+      myHeaders.append("requestUId", "d7e992f3-c9f1-4071-8a4a-6c5839c8d317");
+      myHeaders.append("resourceOwnerId", "l7a0bed42f65814e82a1ca23ab8eda0e88");
+      myHeaders.append("Access-Control-Allow-Headers", "requestUId,resourceOwnerId");
+      myHeaders.append("Content-Type", "application/json");
+     
       
-    }).catch(err=>console.log(err))
-    
+      var raw = JSON.stringify({"applicationKey":"l7a0bed42f65814e82a1ca23ab8eda0e88","applicationSecret":"b777b20368df4cdf96fba31663cabb02"});
+      
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+      
+      fetch("http://api-sandbox.partners.scb/partners/sandbox/v1/oauth/token", requestOptions)
+        .then(response => response.json())
+        .then(result => {console.log(result)
+        if(result.status.code === 1000){
+          var myHeaders = new Headers();
+
+              myHeaders.append("resourceOwnerId", "l7a0bed42f65814e82a1ca23ab8eda0e88");
+              myHeaders.append("Access-Control-Allow-Headers", "ResourceOwnerId,RequestUId");
+              myHeaders.append("Authorization", "Bearer "+(result.data.accessToken));
+              myHeaders.append("ResourceOwnerId", "l7a0bed42f65814e82a1ca23ab8eda0e88");
+              myHeaders.append("RequestUId", "d7e992f3-c9f1-4071-8a4a-6c5839c8d317");
+              myHeaders.append("Channel", "scbeasy");
+              myHeaders.append("Content-Type", "application/json");
+
+
+              var raw = JSON.stringify({"transactionType":"PURCHASE","transactionSubType":["BP","CCFA"],"billPayment":{"paymentAmount":1000,"accountTo":"796764438539448","ref1":"123123","ref2":"456456","ref3":"SCB"},"creditCardFullAmount":{"merchantId":"382574431459828","terminalId":"603988442999576","orderReference":"AA11011","paymentAmount":1000}});
+
+              var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+              };
+
+              fetch("https://api-sandbox.partners.scb/partners/sandbox/v3/deeplink/transactions", requestOptions)
+                .then(responses => responses.json())
+                .then(results => {console.log(results)
+                this.setState({url:results.data.deeplinkUrl})
+                })
+                .catch(error => console.log('error', error));
+        }
+        })
+        .catch(error => console.log('error', error));
+
   }
   render() {
     return (
       <div>
 
-      <button onClick={this.payment}>CLICK PAYMANT</button>
+      <button onClick={this.payment}>CLICK PAYMANTs</button>
       <h1>{this.state.url}</h1>
-        <QRCode
+        {
+          this.state.url &&(
+            <QRCode
         value={this.state.url}
     size={256}
          />
+          )
+        }
+        
       </div>
 
     )
