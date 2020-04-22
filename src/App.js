@@ -13,8 +13,7 @@ export default class App extends Component {
     }
   }
   payment = async()=>{
-    const uid = (Math.random()).toString();
-    console.log(uid)
+
   
       var myHeaders = new Headers();
       myHeaders.append("requestUId", "d7e992f3-c9f1-4071-8a4a-6c5839c8d317");
