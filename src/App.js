@@ -24,13 +24,15 @@ export default class App extends Component {
       
       var raw = JSON.stringify({"applicationKey":"l7a0bed42f65814e82a1ca23ab8eda0e88","applicationSecret":"b777b20368df4cdf96fba31663cabb02"});
       
-      
+
       var requestOptions = {
         method: 'POST',
         headers: myHeaders,
         body: raw,
         redirect: 'follow'
       };
+      
+
       
       fetch("http://api-sandbox.partners.scb/partners/sandbox/v1/oauth/token", requestOptions)
         .then(response => response.json())
